@@ -9,8 +9,8 @@ switch($_SERVER["REQUEST_URI"]) {
 	case "/":
 		(new mangescom\Controller\IndexController($tmpl))->homepage();
 		break;
-	case "/<testroute":
-		echo "test";
+	case "/login":
+		(new mangescom\Controller\LoginController($tmpl))->login();
 		break;
 	default:
 		$matches = [];
