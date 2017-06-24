@@ -37,36 +37,9 @@ class RegisterPDOService implements RegisterService {
 		$stmt->bindValue(3, $lastname);
 		$stmt->bindValue(4, $pw);
 		if($stmt->execute()) {
-			die("works");
-			return true;
+			header("Location: /account");
 		}
 		else {
-			die("failed");
-			return false;
-		}
-	}
-	
-	private function authenticate($email, $password){
-		$pw = md5($password);
-		$stmt = $this->pdo->prepare("SELECT id, Vorname, admin FROM user WHERE email=? AND password =?");
-		$stmt->bindValue(1, $email);
-		$stmt->bindValue(2, $pw);
-		$stmt->execute();
-		if($stmt->rowCount() == 1) {
-			while ($row = $stmt->fetch($this->pdo::FETCH_NUM, $this->pdo::FETCH_ORI_NEXT))
-			{
-				$_SESSION["user"] = $row[0];
-				$_SESSION ["username"] = $row[1];
-		
-				if($row[2] == '1'){
-					$_SESSION["admin"] = "Admin User";
-				}
-			}
-			die("works");
-			return true;
-		}
-		else {
-			die("failed");
 			return false;
 		}
 	}

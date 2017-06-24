@@ -21,7 +21,7 @@ class RegisterController {
 	}
 	
 	public function register($email, $password1, $password2, $vorname, $nachname) {
-		/*if(isset($email)) {
+		/*if(!isset($email)) {
 			$this->showRegister("Fill out all the fields");
 		}
 		else*/ if($password1 != $password2) {
@@ -29,12 +29,8 @@ class RegisterController {
 		}
 		else {
 			echo $this->template->render("header.html.php", ["title" => "Account"]);
-			if($this->registerService->register($email, $vorname, $nachname, $password1)) {
-				echo $this->template->render("logout.html.php");
-			}
-			else {
-				echo $this->template->render("register.html.php", ["error" => "An error has occured"]);
-			}
+			$this->registerService->register($email, $vorname, $nachname, $password1);
+			header("Location: /account");
 		}
 	}
 }

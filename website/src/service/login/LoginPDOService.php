@@ -35,35 +35,29 @@ class LoginPDOService implements LoginService {
 	}
 	
 	public function changepw($old,$new,$id){
-		$pw = md5($old);
-		$newpw = md5($new);
-		$stmt = $this->pdo->prepare("SELECT * FROM user WHERE id=? AND password =?");
+		$stmt = $this->pdo->prepare("SELECT password FROM user WHERE id=?");
 		$stmt->bindValue(1, $id);
-		$stmt->bindValue(2, $pw);
 		$stmt->execute();
 		if($stmt->rowCount() == 1) {
-				$stmt2 = $this->pdo->prepare("UPDATE user SET password=? WHERE id=?");
-				$stmt2->bindValue(1, $newpw);
-				$stmt2->bindValue(2, $id);
-				$stmt2->execute();
-				return true;
-		}
-		else {
-			return false;
+			while ($row = $stmt->fetch($this->pdo::FETCH_NUM, $this->pdo::FETCH_ORI_NEXT))
+			{
+				if(password_verify($old, $row[0])){
+					$pw = password_hash($new, PASSWORD_DEFAULT);
+					$stmt = $this->pdo->prepare("ALTER user SET password=? WHERE id=?");
+					$stmt->bindValue(1, $pw);
+					$stmt->bindValue(2, $id);
+				}
+				else {
+					return false;
+				}
+			}
 		}
 	}
 	
 	public function reset($mail, $pw){
-		$pass = md5($pw);
-		$stmt = $this->pdo->prepare("SELECT * FROM user WHERE email=?");
+		$stmt = $this->pdo->prepare("SELECT password FROM user WHERE email=?");
 		$stmt->bindValue(1, $mail);
 		$stmt->execute();
-		if($stmt->rowCount() == 1) {
-			$stmt2 = $this->pdo->prepare("UPDATE user SET password=? WHERE email=?");
-			$stmt2->bindValue(1, $pass);
-			$stmt2->bindValue(2, $mail);
-			$stmt2->execute();
-		}
 	}
 	
 	public function getId($mail){
