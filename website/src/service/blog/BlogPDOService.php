@@ -1,7 +1,7 @@
 <?php
-namespace rohrerj\service\blog;
+namespace mangescom\service\blog;
 
-use rohrerj\SimpleTemplateEngine;
+use mangescom\SimpleTemplateEngine;
 
 class BlogPDOService implements BlogService {
 	

@@ -1,10 +1,10 @@
 <?php
 
-namespace rohrerj\Controller;
+namespace mangescom\Controller;
 
-use rohrerj\RequestProtection;
-use rohrerj\SimpleTemplateEngine;
-use rohrerj\service\login\LoginService;
+use mangescom\RequestProtection;
+use mangescom\SimpleTemplateEngine;
+use mangescom\service\login\LoginService;
 
 class LoginController 
 {
@@ -14,15 +14,17 @@ class LoginController
   private $template;
   private $loginService;
   private $request;
+  private $mailer;
   
   /**
    * @param ihrname\SimpleTemplateEngine
    */
-  public function __construct(SimpleTemplateEngine $template, LoginService $loginService, RequestProtection $requestProtection)
+  public function __construct(SimpleTemplateEngine $template, LoginService $loginService, RequestProtection $requestProtection, \Swift_Mailer $mailer)
   {
      $this->template = $template;
      $this->loginService = $loginService;
      $this->request = $requestProtection;
+     $this->mailer = $mailer;
   }
 
   public function showLogin($error) {
@@ -85,6 +87,15 @@ class LoginController
   }
   public function forgot($mail){  
   	echo $this->template->render("header.html.php", ["title" => "Account"]);
+  	
+  	$id = $this->loginService->getId($mail);
+  	$token = $this->loginService->getToken($id);
+  	$message = (new \Swift_Message('Password reset'))
+  	->setFrom(['no-reply@no-reply.com' => 'noreply'])
+  	->setTo($mail)
+  	->setBody('Open this link to activate your account: localhost/reset and enter your token:'.$id.'-'.$token);
+  	
+  	$this->mailer->send($message);
   	echo '<h1>Password was sent if registered</h1>
   	<a style="display:block;text-align:center;" href="/account">Back to login page</a>';
   }

@@ -1,5 +1,5 @@
 <?php
-namespace rohrerj;
+namespace mangescom;
 
 class Factory {
 	private $config;
@@ -35,11 +35,21 @@ class Factory {
 		return new service\login\LoginPDOService($this->GetPDO());
 	}
 	
+	public function GetMailer()
+	{
+		return \Swift_Mailer::newInstance(
+				\Swift_SmtpTransport::newInstance($this->config['mailer']['host'], $this->config['mailer']['port'], $this->config['mailer']['security'])
+				->setUsername($this->config['mailer']['user'])
+				->setPassword($this->config['mailer']['password'])
+				);
+	}
+	
 	public function GetLoginController() {
 		return new Controller\LoginController(
 				$this->GetTemplateEngine(),
 				$this->GetLoginService(), 
-				$this->GetRequestProtection()
+				$this->GetRequestProtection(),
+				$this->GetMailer()
 		);
 	}
 

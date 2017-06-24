@@ -1,6 +1,6 @@
 <?php
 
-namespace rohrerj;
+namespace mangescom;
 
 /**
  * Simple Template-Engine which provides arguments into a template,

@@ -1,8 +1,8 @@
 <?php
-namespace rohrerj\Controller;
+namespace mangescom\Controller;
 
-use rohrerj\SimpleTemplateEngine;
-use rohrerj\service\register\RegisterService;
+use mangescom\SimpleTemplateEngine;
+use mangescom\service\register\RegisterService;
 
 class RegisterController {
 	

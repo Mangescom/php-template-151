@@ -1,5 +1,5 @@
 <?php
-namespace rohrerj\service\register;
+namespace mangescom\service\register;
 
 class RegisterPDOService implements RegisterService {
 

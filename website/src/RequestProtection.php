@@ -1,5 +1,5 @@
 <?php
-namespace rohrerj;
+namespace mangescom;
 
 class RequestProtection {
 		

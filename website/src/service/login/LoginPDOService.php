@@ -1,5 +1,5 @@
 <?php
-namespace rohrerj\service\login;
+namespace mangescom\service\login;
 
 class LoginPDOService implements LoginService {
 	
@@ -65,4 +65,26 @@ class LoginPDOService implements LoginService {
 			$stmt2->execute();
 		}
 	}
+	
+	public function getId($mail){
+		$stmt = $this->pdo->prepare("SELECT id FROM user WHERE email=?");
+		$stmt->bindValue(1, $mail);
+		$stmt->execute();
+		if($stmt->rowCount() == 1) {
+			while ($row = $stmt->fetch($this->pdo::FETCH_NUM, $this->pdo::FETCH_ORI_NEXT))
+			{
+				return $row[0];
+			}
+		}
+	}
+	
+	public function getToken($id){
+		$token = bin2hex(random_bytes(8));
+		$stmt = $this->pdo->prepare("UPDATE user SET reset=? WHERE id=?");
+		$stmt->bindValue(1, $token);
+		$stmt->bindValue(2, $id);
+		$stmt->execute();
+		return $token;
+	}
+	
 }

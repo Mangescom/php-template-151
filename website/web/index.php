@@ -5,7 +5,7 @@ session_start();
 require_once("../vendor/autoload.php");
 $config = parse_ini_file(__DIR__ . "/../config.ini",true);
 
-$factory = new rohrerj\Factory($config);
+$factory = new mangescom\Factory($config);
 
 switch($_SERVER["REQUEST_URI"]) {
 	

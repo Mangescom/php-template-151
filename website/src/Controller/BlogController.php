@@ -1,10 +1,10 @@
 <?php
 
-namespace rohrerj\Controller;
+namespace mangescom\Controller;
 
-use rohrerj\RequestProtection;
-use rohrerj\SimpleTemplateEngine;
-use rohrerj\service\blog\BlogService;
+use mangescom\RequestProtection;
+use mangescom\SimpleTemplateEngine;
+use mangescom\service\blog\BlogService;
 
 class BlogController
 {

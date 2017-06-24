@@ -1,5 +1,5 @@
 <?php
-namespace rohrerj\service\blog;
+namespace mangescom\service\blog;
 
 interface BlogService {
 	public function ShowBlog();
