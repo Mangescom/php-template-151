@@ -1,6 +1,6 @@
 <?php
 
-namespace mangescom;
+namespace rohrerj;
 
 /**
  * Simple Template-Engine which provides arguments into a template,
@@ -27,8 +27,9 @@ class SimpleTemplateEngine
    */
   public function render($template, array $arguments = []) 
   {
-    extract($arguments);
+  	extract($arguments);
     ob_start();
+    
     require($this->templatePath.$template);
     return ob_get_clean();
   }

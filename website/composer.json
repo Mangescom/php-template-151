@@ -1,9 +1,9 @@
 {
-    "name": "ihrname/Datenbankprojekt",
+    "name": "rohrerj/Datenbankprojekt",
     "type": "project",
     "autoload": {
         "psr-4": {
-            "mangescom\\": "src/"
+            "rohrerj\\": "src/"
         }
     },
     "require": {
