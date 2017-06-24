@@ -1,11 +1,11 @@
 -- Adminer 4.2.5 MySQL dump
 
-use app;
-
 SET NAMES utf8;
 SET time_zone = '+00:00';
 SET foreign_key_checks = 0;
 SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
+
+USE app;
 
 DROP TABLE IF EXISTS `blogpost`;
 CREATE TABLE `blogpost` (
@@ -49,14 +49,13 @@ CREATE TABLE `user` (
   `vorname` varchar(255) DEFAULT NULL,
   `nachname` varchar(255) DEFAULT NULL,
   `admin` tinyint(4) DEFAULT '0',
+  `reset` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `user` (`id`, `email`, `password`, `vorname`, `nachname`, `admin`) VALUES
-(1,	'jonas@portmann.com',	'098f6bcd4621d373cade4e832627b4f6',	'Jonas',	'Portmann',	1),
-(6,	'Test@account.com',	'9cdfb439c7876e703e307864c9167a15',	'Test',	'Tester',	0),
-(7,	'test2@what.com',	'9cdfb439c7876e703e307864c9167a15',	'test',	'tester',	0);
-
+INSERT INTO `user` (`id`, `email`, `password`, `vorname`, `nachname`, `admin`, `reset`) VALUES
+(1,	'jonas@portmann.com',	'$2y$10$evJ4otkU4uduM1M4a2ZZI.fIxYGDVR9upQvv4godn3Qr2LKmL4bte',	'Jonas',	'Portmann',	1,	NULL),
+(6,	'Test@account.com',	'$2y$10$evJ4otkU4uduM1M4a2ZZI.fIxYGDVR9upQvv4godn3Qr2LKmL4bte',	'Test',	'Tester',	0,	NULL);
 DROP TABLE IF EXISTS `video`;
 CREATE TABLE `video` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -73,4 +72,5 @@ INSERT INTO `video` (`id`, `url`, `title`, `posted`, `author`) VALUES
 (1,	'-wXjs6DXoeY',	'Ryan the builder',	'2017-06-15 06:40:55',	1),
 (3,	'E6TUs69Cw94',	'Rick and Morty',	'2017-06-15 06:41:43',	6);
 
--- 2017-06-18 07:33:12
+-- 2017-06-24 12:30:29
+        
